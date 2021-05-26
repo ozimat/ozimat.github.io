@@ -155,7 +155,6 @@
             background-size: cover;
             background-position: center center;
             width: 100%;
-            height: 100%;
             opacity: 1;
             visibility: inherit;
             z-index: 20;
@@ -167,6 +166,7 @@
         section.hakkımda {
             background-color: rgb(255, 255, 255);
             height: 710px;
+            width: 100%;
             position: relative;
         }
         
@@ -222,6 +222,7 @@
         
         section#program {
             height: 710px;
+            width: 100%;
             background-color: #e8f8f8;
         }
         
@@ -387,6 +388,7 @@
         
         section.oyun {
             height: 658px;
+            width: 100%;
         }
         
         section.oyun h1#hakkımdabaslık {
@@ -418,6 +420,7 @@
         
         section.pdf {
             height: 658px;
+            width: 100%;
         }
         
         section.pdf h1#hakkımdabaslık {
@@ -486,6 +489,7 @@
             align-items: center;
             flex-direction: column;
             height: 710px;
+            width: 100%;
         }
         
         .contact .contactForm {
