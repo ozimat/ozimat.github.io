@@ -18,185 +18,417 @@
     <script src="js/mouse73.js "></script>
     <script src="js/mouse123.js "></script>
     <!-------------------------------mouse tıklandığında öğeyi incele iptal------------------------>
+    <style>
+        /*-------------------------------------------------- -preloader----------------------------------------------*/
+        
+        .loading--circle {
+            background-color: black;
+            box-sizing: border-box;
+            border: solid 20px #373737;
+            border-radius: 50%;
+            width: 330px;
+            height: 330px;
+            overflow: hidden;
+            background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/68819/bg-loading-ekg4.gif) repeat-x 21px center #000;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            -moz-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            -o-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            -webkit-animation-name: buildloader;
+            -moz-animation-name: buildloader;
+            animation-name: buildloader;
+            -webkit-animation-duration: 0.5s;
+            -moz-animation-duration: 0.5s;
+            animation-duration: 0.5s;
+            -webkit-animation-fill-mode: forwards;
+            -moz-animation-fill-mode: forwards;
+            animation-fill-mode: forwards;
+            -webkit-animation-timing-function: linear;
+            -moz-animation-timing-function: linear;
+            animation-timing-function: linear;
+            -webkit-animation-iteration-count: 1;
+            -moz-animation-iteration-count: 1;
+            animation-iteration-count: 1;
+        }
+        
+        @-webkit-keyframes buildloader {
+            from {
+                width: 0px;
+                height: 0px;
+                border-width: 1px;
+            }
+            to {
+                width: 330px;
+                height: 330px;
+                border-width: 20px;
+            }
+        }
+        
+        @-moz-keyframes buildloader {
+            from {
+                width: 0px;
+                height: 0px;
+                border-width: 1px;
+            }
+            to {
+                width: 330px;
+                height: 330px;
+                border-width: 20px;
+            }
+        }
+        
+        @keyframes buildloader {
+            from {
+                width: 0px;
+                height: 0px;
+                border-width: 1px;
+            }
+            to {
+                width: 330px;
+                height: 330px;
+                border-width: 20px;
+            }
+        }
+        
+        .heart {
+            position: absolute;
+            width: 130px;
+            left: 50%;
+            top: 50%;
+            margin-left: -58px;
+            margin-top: -102px;
+            -webkit-animation-name: heartbeat;
+            -moz-animation-name: heartbeat;
+            animation-name: heartbeat;
+            -webkit-animation-duration: 0.35s;
+            -moz-animation-duration: 0.35s;
+            animation-duration: 0.35s;
+            -webkit-animation-timing-function: ease;
+            -moz-animation-timing-function: ease;
+            animation-timing-function: ease;
+            -webkit-animation-iteration-count: infinite;
+            -moz-animation-iteration-count: infinite;
+            animation-iteration-count: infinite;
+        }
+        
+        @-webkit-keyframes heartbeat {
+            0%,
+            100% {
+                -webkit-transform: scale(1);
+            }
+            50%,
+            67% {
+                -webkit-transform: scaleY(1.05);
+            }
+            70% {
+                -webkit-transform: scale(1.05);
+            }
+        }
+        
+        @-moz-keyframes heartbeat {
+            0%,
+            100% {
+                -moz-transform: scale(1);
+            }
+            50%,
+            67% {
+                -moz-transform: scaleY(1.05);
+            }
+            70% {
+                -moz-transform: scale(1.05);
+            }
+        }
+        
+        @keyframes heartbeat {
+            0%,
+            100% {
+                -webkit-transform: scale(1);
+                -moz-transform: scale(1);
+                -ms-transform: scale(1);
+                -o-transform: scale(1);
+                transform: scale(1);
+            }
+            50%,
+            67% {
+                -webkit-transform: scaleY(1.05);
+                -moz-transform: scaleY(1.05);
+                -ms-transform: scaleY(1.05);
+                -o-transform: scaleY(1.05);
+                transform: scaleY(1.05);
+            }
+            70% {
+                -webkit-transform: scale(1.05);
+                -moz-transform: scale(1.05);
+                -ms-transform: scale(1.05);
+                -o-transform: scale(1.05);
+                transform: scale(1.05);
+            }
+        }
+        
+        .ekg--wipe {
+            position: absolute;
+            width: 300%;
+            height: 100%;
+            background: -webkit-linear-gradient(left, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.7) 45%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.7) 55%, rgba(0, 0, 0, 0.7) 100%);
+            background: linear-gradient(to right, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.7) 45%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.7) 55%, rgba(0, 0, 0, 0.7) 100%);
+            -webkit-animation-name: ekgrunning;
+            -moz-animation-name: ekgrunning;
+            animation-name: ekgrunning;
+            -webkit-animation-duration: 1.4s;
+            -moz-animation-duration: 1.4s;
+            animation-duration: 1.4s;
+            -webkit-animation-delay: 0.175s;
+            -moz-animation-delay: 0.175s;
+            animation-delay: 0.175s;
+            -webkit-animation-timing-function: ease;
+            -moz-animation-timing-function: ease;
+            animation-timing-function: ease;
+            -webkit-animation-iteration-count: infinite;
+            -moz-animation-iteration-count: infinite;
+            animation-iteration-count: infinite;
+        }
+        
+        @-webkit-keyframes ekgrunning {
+            from {
+                left: -150%;
+            }
+            to {
+                left: 0%;
+            }
+        }
+        
+        @-moz-keyframes ekgrunning {
+            from {
+                left: -150%;
+            }
+            to {
+                left: 0%;
+            }
+        }
+        
+        @keyframes ekgrunning {
+            from {
+                left: -150%;
+            }
+            to {
+                left: 0%;
+            }
+        }
+        
+        div#loader {
+            z-index: 999;
+            width: 100%;
+            height: 100%;
+            overflow: none;
+            background: radial-gradient( #333, #000);
+            position: fixed;
+        }
+        
+        div#yuvarlak {
+            z-index: 999;
+            width: 100%;
+            height: 100%;
+            overflow: none;
+            position: fixed;
+            right: 0;
+            top: 330px;
+        }
+        /*----------------------------------------------------preloader son------------------------------------------*/
+    </style>
 </head>
 
-<body>
-    <div class="toggle" id="toggle" onclick="toggleMenu();"></div>
-    <div class="toggle2" id="toggle2" onclick="kapa()"></div>
+<body onload="myFunction()" style="margin:0;" id="123">
+    <!--------------------------------------preloader--------------------------------->
+    <div id="loader">
 
-    <section class="anasayfa" id="anasayfa">
-        <div id="menu" class="menu">
+        <div class="loading--circle" id="yuvarlak">
+            <div class="ekg--wipe"></div>
+            <a href="https://ozimat.github.io/"><img class="heart" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/68819/loading-heart.svg"></a>
+        </div>
+    </div>
+    <!---------------------------------------preloader---------------------------------->
+    <div id="myDiv">
 
-            <div id="menuic">
+        <div class="toggle" id="toggle" onclick="toggleMenu();"></div>
+        <div class="toggle2" id="toggle2" onclick="kapa()"></div>
 
-                <ul id="alt">
-                    <span style="font-size:18px;">
+        <section class="anasayfa" id="anasayfa">
+            <div id="menu" class="menu">
+
+                <div id="menuic">
+
+                    <ul id="alt">
+                        <span style="font-size:18px;">
                         <span style="font-family:marck script,cursive">
                             <a href="index.html">
                                 <span style="letter-spacing:0em">
                                     Oğuzhan Aktaş 
                                 </span>
-                    </a>
-                    </span>
-                    </span>
-                    <li class="active">
-                        <a href="#anasayfa">ANASAYFA</a> </li>
-                    <li>
-                        <a href="#hakkımda">HAKKIMDA</a> </li>
-                    <li>
-                        <a href="#program">ÇALIŞMA PROGRAMLARI</a> </li>
-                    <li>
-                        <a href="#oyun">MATEMATİK OYUNLARI</a> </li>
+                        </a>
+                        </span>
+                        </span>
+                        <li class="active">
+                            <a href="#anasayfa">ANASAYFA</a> </li>
+                        <li>
+                            <a href="#hakkımda">HAKKIMDA</a> </li>
+                        <li>
+                            <a href="#program">ÇALIŞMA PROGRAMLARI</a> </li>
+                        <li>
+                            <a href="#oyun">MATEMATİK OYUNLARI</a> </li>
 
-                    <li>
-                        <a href="#pdf">ÇALIŞMA PDF'LERİ</a>
-                        <ul id="altı">
-                            <li>
-                                <a href="#bes" id="alta"> 5.SINIF</a></li>
-                            <li>
-                                <a href="#altıı" id="alta">6.SINIF</a> </li>
-                            <li>
-                                <a href="#yedi" id="alta"> 7.SINIF</a></li>
-                            <li>
-                                <a href="sekiz" id="alta">8.SINIF</a> </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#contact">İLETİŞİM</a>
-                    </li>
-                </ul>
+                        <li>
+                            <a href="#pdf">ÇALIŞMA PDF'LERİ</a>
+                            <ul id="altı">
+                                <li>
+                                    <a href="#bes" id="alta"> 5.SINIF</a></li>
+                                <li>
+                                    <a href="#altıı" id="alta">6.SINIF</a> </li>
+                                <li>
+                                    <a href="#yedi" id="alta"> 7.SINIF</a></li>
+                                <li>
+                                    <a href="sekiz" id="alta">8.SINIF</a> </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#contact">İLETİŞİM</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
-        <!-----------------------------------------------------------------------------------------mobilmenu---------------------------------------------------------------->
-        <div id="mobilmenu" class="mobilmenu">
-            <div>
+            <!-----------------------------------------------------------------------------------------mobilmenu---------------------------------------------------------------->
+            <div id="mobilmenu" class="mobilmenu">
+                <div>
 
-                <ul>
-                    <li>
-                        <a href="#anasayfa">ANASAYFA</a> </li>
-                    <li>
-                        <a href="#hakkımda">HAKKIMDA</a> </li>
-                    <li>
-                        <a href="#program">ÇALIŞMA PROGRAMLARI</a> </li>
-                    <li>
-                        <a href="#oyun">MATEMATİK OYUNLARI</a> </li>
+                    <ul>
+                        <li>
+                            <a href="#anasayfa">ANASAYFA</a> </li>
+                        <li>
+                            <a href="#hakkımda">HAKKIMDA</a> </li>
+                        <li>
+                            <a href="#program">ÇALIŞMA PROGRAMLARI</a> </li>
+                        <li>
+                            <a href="#oyun">MATEMATİK OYUNLARI</a> </li>
 
-                    <li>
-                        <a href="#pdf">ÇALIŞMA PDF'LERİ</a>
-                    </li>
-                    <li>
-                        <a href="#contact">İLETİŞİM</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <!---------------------------------------------------------------------------------------------------------------------------------------------------------------->
-        <center>
-            <div id="baslık">
-                <h1 id="baslıkana">Matematik</h1>
-            </div>
-        </center>
-    </section>
-    <!------------------------------------------------------------------------------------------->
-    <section class="hakkımda" id="hakkımda">
-        <br><br><br><br>
-        <h1 id="hakkımdabaslık">HAKKIMDA</h1>
-        <img src="img/1.jpg" id="hakkımdaresim">
-        <p id="hakkımdametin">Ben Oğuzhan Aktaş, 'Fevzi Çakmak Ortaokulunda' mezunum <br> şuanda 'Turhan Tayan Anadolu Lisesinde' öğrenim görmekteyim. <br> Hobilerim Matematik , Bilim ,Tıp ve Yazılım bu sitede ' de Matematik ile ilgili <br> oyunlar , çalışma Pdfleri ve ders
-            programları paylaşacağım.
-        </p>
-    </section>
-    <!-------------------------------------------------------------------------------------------->
-    <section class="program" id="program">
-        <br><br><br>
-        <h1 id="hakkımdabaslık">ÇALIŞMA PROGRAMLARI</h1>
-        <div id="baslıkdivi">
-            <h1>8.Sınıf LGS son 2 hafta ders çalışma programı(normal)</h1>
-            <a href="" target="_blank"><img src="img/123.png" width="120px"></a>
-        </div>
-        <div id="baslıkdivi2">
-            <h1>8.Sınıf LGS son 15 gün ders çalışma programı(ZOR)</h1>
-            <a href="" target="_blank"><img src="img/123.png" width="120px"></a>
-        </div>
-        <div id="baslıkdivi3">
-            <h1>8.Sınıf LGS son 1 hafta ders çalışma programı(ZOR)</h1>
-            <a href="" target="_blank"><img src="img/123.png" width="120px"></a>
-        </div>
-        <div id="baslıkdivi4">
-            <h1>8.Sınıf LGS hafta sonu ders çalışma programı(ZOR)</h1>
-            <a href="" target="_blank"><img src="img/123.png" width="120px"></a>
-        </div>
-    </section>
-    <!-------------------------------------------------------------------------------------------->
-    <section class="oyun" id="oyun">
-        <br><br><br>
-        <h1 id="hakkımdabaslık">Matematik Oyunları</h1>
-    </section>
-    <!--------------------------------------------------------------------------------------------->
-    <section class="pdf" id="pdf">
-        <br><br><br>
-        <h1 id="hakkımdabaslık">8.Sınıf Matematik Çalışma PDF'leri</h1>
-        <div id="calısmapdf" class="calısmapdf">
-            <h1>Çarpanlar ve Katlar</h1>
-            <a href="" target="_blank"><img src="img/123.png" width="120px"></a>
-        </div>
-        <div id="calısmapdf2" class="calısmapdf2">
-            <h1>Üslü İfadeler</h1>
-            <a href="" target="_blank"><img src="img/123.png" width="120px"></a>
-        </div>
-        <div id="calısmapdf3" class="calısmapdf3">
-            <h1>Kareköklü İfadeler</h1>
-            <a href="" target="_blank"><img src="img/123.png" width="120px"></a>
-        </div>
-        <div id="calısmapdf4" class="calısmapdf4">
-            <h1>Cebirsel İfadeler</h1>
-            <a href="" target="_blank"><img src="img/123.png" width="120px"></a>
-        </div>
-        <div id="calısmapdf5" class="calısmapdf5">
-            <h1>Doğrusal denklemler</h1>
-            <a href="" target="_blank"><img src="img/123.png" width="120px"></a>
-        </div>
-    </section>
-    <!--------------------------------------------------------------------------------------------->
-    <section class="contact" id="contact">
-        <div class="title white">
-            <h2>İletişim</h2>
-            <p>Öneri ve Görüşleriniz için bana ulaşın.</p>
-        </div>
-        <div class="contactForm">
-            <div class="row">
-                <div class="col50">
-                    <input type="text" name="" placeholder="İsim">
-                </div>
-                <div class="col50">
-                    <input type="text" name="" placeholder="Soyisim">
+                        <li>
+                            <a href="#pdf">ÇALIŞMA PDF'LERİ</a>
+                        </li>
+                        <li>
+                            <a href="#contact">İLETİŞİM</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
-            <div class="row">
-                <div class="col50">
-                    <input type="text" name="" placeholder="Email">
+            <!---------------------------------------------------------------------------------------------------------------------------------------------------------------->
+            <center>
+                <div id="baslık">
+                    <h1 id="baslıkana">Matematik</h1>
                 </div>
-                <div class="col50">
-                    <input type="text" name="" placeholder="Tel. numarası">
+            </center>
+        </section>
+        <!------------------------------------------------------------------------------------------->
+        <section class="hakkımda" id="hakkımda">
+            <br><br><br><br>
+            <h1 id="hakkımdabaslık">HAKKIMDA</h1>
+            <img src="img/1.jpg" id="hakkımdaresim">
+            <p id="hakkımdametin">Ben Oğuzhan Aktaş, 'Fevzi Çakmak Ortaokulunda' mezunum <br> şuanda 'Turhan Tayan Anadolu Lisesinde' öğrenim görmekteyim. <br> Hobilerim Matematik , Bilim ,Tıp ve Yazılım bu sitede ' de Matematik ile ilgili <br> oyunlar , çalışma Pdfleri ve
+                ders programları paylaşacağım.
+            </p>
+        </section>
+        <!-------------------------------------------------------------------------------------------->
+        <section class="program" id="program">
+            <br><br><br>
+            <h1 id="hakkımdabaslık">ÇALIŞMA PROGRAMLARI</h1>
+            <div id="baslıkdivi">
+                <h1>8.Sınıf LGS son 2 hafta ders çalışma programı(normal)</h1>
+                <a href="" target="_blank"><img src="img/123.png" width="120px"></a>
+            </div>
+            <div id="baslıkdivi2">
+                <h1>8.Sınıf LGS son 15 gün ders çalışma programı(ZOR)</h1>
+                <a href="" target="_blank"><img src="img/123.png" width="120px"></a>
+            </div>
+            <div id="baslıkdivi3">
+                <h1>8.Sınıf LGS son 1 hafta ders çalışma programı(ZOR)</h1>
+                <a href="" target="_blank"><img src="img/123.png" width="120px"></a>
+            </div>
+            <div id="baslıkdivi4">
+                <h1>8.Sınıf LGS hafta sonu ders çalışma programı(ZOR)</h1>
+                <a href="" target="_blank"><img src="img/123.png" width="120px"></a>
+            </div>
+        </section>
+        <!-------------------------------------------------------------------------------------------->
+        <section class="oyun" id="oyun">
+            <br><br><br>
+            <h1 id="hakkımdabaslık">Matematik Oyunları</h1>
+        </section>
+        <!--------------------------------------------------------------------------------------------->
+        <section class="pdf" id="pdf">
+            <br><br><br>
+            <h1 id="hakkımdabaslık">8.Sınıf Matematik Çalışma PDF'leri</h1>
+            <div id="calısmapdf" class="calısmapdf">
+                <h1>Çarpanlar ve Katlar</h1>
+                <a href="" target="_blank"><img src="img/123.png" width="120px"></a>
+            </div>
+            <div id="calısmapdf2" class="calısmapdf2">
+                <h1>Üslü İfadeler</h1>
+                <a href="" target="_blank"><img src="img/123.png" width="120px"></a>
+            </div>
+            <div id="calısmapdf3" class="calısmapdf3">
+                <h1>Kareköklü İfadeler</h1>
+                <a href="" target="_blank"><img src="img/123.png" width="120px"></a>
+            </div>
+            <div id="calısmapdf4" class="calısmapdf4">
+                <h1>Cebirsel İfadeler</h1>
+                <a href="" target="_blank"><img src="img/123.png" width="120px"></a>
+            </div>
+            <div id="calısmapdf5" class="calısmapdf5">
+                <h1>Doğrusal denklemler</h1>
+                <a href="" target="_blank"><img src="img/123.png" width="120px"></a>
+            </div>
+        </section>
+        <!--------------------------------------------------------------------------------------------->
+        <section class="contact" id="contact">
+            <div class="title white">
+                <h2>İletişim</h2>
+                <p>Öneri ve Görüşleriniz için bana ulaşın.</p>
+            </div>
+            <div class="contactForm">
+                <div class="row">
+                    <div class="col50">
+                        <input type="text" name="" placeholder="İsim">
+                    </div>
+                    <div class="col50">
+                        <input type="text" name="" placeholder="Soyisim">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col50">
+                        <input type="text" name="" placeholder="Email">
+                    </div>
+                    <div class="col50">
+                        <input type="text" name="" placeholder="Tel. numarası">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col100">
+                        <textarea placeholder="Mesaj"></textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col100">
+                        <input type="submit" value="Gönder">
+                    </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col100">
-                    <textarea placeholder="Mesaj"></textarea>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col100">
-                    <input type="submit" value="Gönder">
-                </div>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <div class="copyright">
-        <p>Copyright © 2022 Oğuzhan Aktaş. All Right Reserved.</p>
+        <div class="copyright">
+            <p>Copyright © 2022 Oğuzhan Aktaş. All Right Reserved.</p>
+        </div>
     </div>
-
     <script>
         function toggleMenu() {
             document.getElementById("mobilmenu").style.display = "block";
@@ -209,6 +441,18 @@
             document.getElementById("mobilmenu").style.display = "none";
             document.getElementById("toggle").style.display = "block";
             document.getElementById("toggle2").style.display = "none";
+        }
+    </script>
+    <script>
+        var myVar;
+
+        function myFunction() {
+            myVar = setTimeout(showPage, 4800);
+        }
+
+        function showPage() {
+            document.getElementById("loader").style.display = "none";
+            document.getElementById("myDiv").style.display = "block";
         }
     </script>
 </body>
